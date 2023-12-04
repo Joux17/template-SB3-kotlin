@@ -1,11 +1,11 @@
-package com.joux.template
+package com.joux.template.launcher
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class TemplateApplication
+class AppLauncher
 
 fun main(args: Array<String>) {
-	runApplication<TemplateApplication>(*args)
+    runApplication<AppLauncher>(*args)
 }
