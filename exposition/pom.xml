@@ -16,6 +16,7 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- Dépendances internes -->
         <dependency>
             <groupId>com.joux</groupId>
             <artifactId>domain</artifactId>
@@ -24,5 +25,41 @@
             <groupId>com.joux</groupId>
             <artifactId>application</artifactId>
         </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
+
+    	<build>
+    		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+<!--    		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>-->
+    		<plugins>
+    			<plugin>
+    				<groupId>org.springframework.boot</groupId>
+    				<artifactId>spring-boot-maven-plugin</artifactId>
+    			</plugin>
+    			<plugin>
+    				<groupId>org.jetbrains.kotlin</groupId>
+    				<artifactId>kotlin-maven-plugin</artifactId>
+    				<configuration>
+    					<args>
+    						<arg>-Xjsr305=strict</arg>
+    					</args>
+    					<compilerPlugins>
+    						<plugin>spring</plugin>
+    					</compilerPlugins>
+    				</configuration>
+    				<dependencies>
+    					<dependency>
+    						<groupId>org.jetbrains.kotlin</groupId>
+    						<artifactId>kotlin-maven-allopen</artifactId>
+    						<version>${kotlin.version}</version>
+    					</dependency>
+    				</dependencies>
+    			</plugin>
+    		</plugins>
+    	</build>
 </project>
