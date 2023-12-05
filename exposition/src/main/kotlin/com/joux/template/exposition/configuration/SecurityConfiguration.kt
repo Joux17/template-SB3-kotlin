@@ -1,5 +1,7 @@
 package com.joux.template.exposition.configuration
 
+import com.joux.template.exposition.security.JwtAuthenticationFilter
+import jakarta.servlet.DispatcherType.FORWARD
 import jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN
 import jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED
 import org.springframework.context.annotation.Bean
@@ -11,11 +13,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true) // Permet d'utiliser @Authorized ou @Secured
-class SecurityConfiguration {
+class SecurityConfiguration(
+    private val jwtAuthenticationFilter: JwtAuthenticationFilter,
+) {
 
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
@@ -43,9 +48,15 @@ class SecurityConfiguration {
 
             }
             .httpBasic(org.springframework.security.config.Customizer.withDefaults())
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .sessionManagement { customizer -> customizer.sessionCreationPolicy(STATELESS) }
             .authorizeHttpRequests { requests ->
                 requests
+                    .dispatcherTypeMatchers(FORWARD).permitAll()
+                    .requestMatchers(
+                        "/error"
+                    ).permitAll()
+
                     .requestMatchers(
                         POST,
                         "/api/users/login"
@@ -54,7 +65,12 @@ class SecurityConfiguration {
                     .requestMatchers(
                         GET,
                         "/api/users/secret"
-                    ).hasRole("ROLE_ADMIN")
+                    ).hasRole("ADMIN")
+
+                    .requestMatchers(
+                        GET,
+                        "/api/users/traitementAdministrateur"
+                    ).hasRole("ADMIN")
 
                     .requestMatchers(OPTIONS).permitAll()
                     .anyRequest().authenticated()
