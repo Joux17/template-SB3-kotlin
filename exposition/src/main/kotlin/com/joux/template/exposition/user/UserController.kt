@@ -1,6 +1,6 @@
 package com.joux.template.exposition.user
 
-import com.joux.template.application.UserUseCases
+import com.joux.template.application.user.UserUseCases
 import com.joux.template.exposition.user.model.LoginRequest
 import com.joux.template.exposition.user.model.LoginResponse
 import org.springframework.web.bind.annotation.*

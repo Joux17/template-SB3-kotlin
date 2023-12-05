@@ -1,9 +1,10 @@
-package com.joux.template.application
+package com.joux.template.application.user
 
 import com.joux.template.domain.exception.AuthenticationFailedException
 import com.joux.template.domain.user.exception.UserNotFoundException
 import com.joux.template.domain.user.model.UserAuthenticationData
 import com.template.domain.port.UserPort
+import com.template.domain.user.model.User
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -23,5 +24,9 @@ class UserUseCases(
             accessToken = "accesToken",
             refreshToken = UUID.randomUUID()
         )
+    }
+
+    fun findById(username: UUID): User? {
+        return userPort.findById(username)
     }
 }
