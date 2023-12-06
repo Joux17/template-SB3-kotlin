@@ -7,7 +7,7 @@ import com.template.domain.user.model.User
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
+//@Component
 class UserInMermoryAdapter : UserPort {
     val users: List<User> = listOf(
         User(UUID.fromString("6ca10032-e6f4-4c6a-8741-fb20b18b8dcf"), "password", listOf(STANDARD)),

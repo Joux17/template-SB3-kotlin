@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  example-database:
+    container_name: "example-database"
+    image: "postgres:16"
+    ports:
+      - "50001:5432"
+    networks:
+      - "example-local-network"
+    environment:
+      POSTGRES_DB: example_db
+      POSTGRES_USER: example_admin
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./docker/postgresql/pgdata:/var/lib/postgresql/data/pgdata"
+
+
+networks:
+  example-local-network:
