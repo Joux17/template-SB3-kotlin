@@ -1,9 +1,3 @@
 server:
   servlet:
     context-path: /
-
-application:
-  security:
-    jwt:
-      secretKey: "secretKey"
-      expirationDelayInMinutes: 30
