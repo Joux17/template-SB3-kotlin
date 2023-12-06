@@ -25,9 +25,9 @@ class UserController(
     }
 
     @GetMapping("/traitementAdministrateur")
-    @PreAuthorize("hasRole('ADMIN')" )
-    fun traitementAdministrateur(): Unit {
-
+//    @PreAuthorize("hasRole('ADMIN')") // Pas utile car déjà vérifié dans SecurityConfiguration
+    fun traitementAdministrateur(): String {
+        return "traitementAdmin"
     }
 
     @GetMapping("/test")

@@ -60,7 +60,7 @@ class SecurityConfiguration(
                     .requestMatchers(
                         POST,
                         "/api/users/login"
-                    ).permitAll()
+                    ).permitAll() // white liste des endpoints en POST autorisés sans être authentifié
 
                     .requestMatchers(
                         GET,
